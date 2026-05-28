@@ -2,7 +2,7 @@
    main.js (FIXED + CLEAN REVEAL SYSTEM)
 ══════════════════════════════════════ */
 
-const API_URL = "https://portifolio-kmnf.onrender.com/api";
+const API_URL = "https://portifolio-kmnf.onrender.com";
 
 /* ── FETCH HELPER ── */
 async function get(path) {
