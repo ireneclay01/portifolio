@@ -6,7 +6,7 @@ const API_URL = "https://portifolio-kmnf.onrender.com";
 
 /* ── FETCH HELPER ── */
 async function get(path) {
-  const res = await fetch(API_URL + path);
+  const res = await fetch(API_URL + "/api" + path);
 
   if (!res.ok) {
     throw new Error(`API Error: ${res.status}`);
