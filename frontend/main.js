@@ -2,7 +2,7 @@
    main.js
 ══════════════════════════════════════ */
 
-const API_BASE = "portifolio-o3ecqorua-ireneclay01s-projects.vercel.app";
+const API_URL = "https://portifolio-kmnf.onrender.com";clearInterval
 
 /* ── FETCH HELPER ── */
 
