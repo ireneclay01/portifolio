@@ -1,0 +1,108 @@
+{
+  "profile": {
+    "name": "Irene Clay Kalinga",
+    "role": "Website Developer",
+    "bio": "I like building web applications with high usability, performance and clean design.",
+    "location": "Dar es Salaam, Tanzania",
+    "email": "irenekalinga01@gmail.com",
+    "phone": "+255 616 298 436",
+    "photo": "/assets/images/profile.jpg",
+    "social": {
+      "github": "https://github.com/ireneclay01",
+      "whatsapp": "https://wa.me/255679646709"
+    }
+  },
+
+  "skills": [
+    {
+      "domain": "Frontend Development",
+      "technologies": [
+        "HTML",
+        "CSS",
+        "JavaScript",
+        "Responsive Design"
+      ]
+    },
+
+    {
+      "domain": "Backend Development",
+      "technologies": [
+        "Python",
+        "Flask",
+        "PHP",
+        "Laravel",
+        "REST APIs"
+      ]
+    },
+
+    {
+      "domain": "Database & Tools",
+      "technologies": [
+        "SQL",
+        "MySQL",
+        "Git",
+        "GitHub"
+      ]
+    }
+  ],
+
+  "qualifications": {
+    "education": [
+      {
+        "degree": "Bachelor of Science in Data Science",
+        "institution": "EASTC",
+        "period": "2023 - Present",
+        "status": "In Progress",
+        "description": "Studying data science, web development, databases and machine learning."
+      },
+
+      {
+        "degree": "Certificate in Web Development",
+        "institution": "Online Course",
+        "period": "2024",
+        "status": "Completed",
+        "description": "Completed practical training in frontend and backend web technologies."
+      }
+    ]
+  },
+
+  "projects": [
+    {
+      "title": "Portfolio Website",
+      "description": "Personal portfolio built with Flask and HTML, deployed on Vercel and Render.",
+      "stack": [
+        "HTML",
+        "CSS",
+        "Flask"
+      ],
+      "liveUrl": "#",
+      "githubUrl": "https://github.com/ireneclay01",
+      "emoji": "🌐"
+    },
+
+    {
+      "title": "Chinaboda Co Ltd Webapp",
+      "description": "Company web application built with React, CSS and HTML.",
+      "stack": [
+        "React",
+        "CSS",
+        "HTML"
+      ],
+      "liveUrl": "#",
+      "githubUrl": "https://github.com/ireneclay01",
+      "emoji": "🏢"
+    },
+
+    {
+      "title": "Todo App",
+      "description": "Simple and clean todo application built with Python and Flask.",
+      "stack": [
+        "Python",
+        "Flask"
+      ],
+      "liveUrl": "#",
+      "githubUrl": "https://github.com/ireneclay01",
+      "emoji": "✅"
+    }
+  ]
+}

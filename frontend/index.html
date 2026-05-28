@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Irene Clay Kalinga | Website Developer</title>
+  <link rel="stylesheet" href="style.css"/>
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet"/>
+</head>
+<body>
+
+<!-- NAV -->
+<nav class="nav">
+  <div class="nav-logo">IC.</div>
+  <ul class="nav-links">
+    <li><a href="#about">About</a></li>
+    <li><a href="#skills">Skills</a></li>
+    <li><a href="#qualifications">Education</a></li>
+    <li><a href="#projects">Projects</a></li>
+    <li><a href="#contact">Contact</a></li>
+    <li>
+      <button class="theme-toggle" id="theme-toggle" aria-label="Toggle theme">
+        <div class="knob" id="knob">☀️</div>
+      </button>
+    </li>
+  </ul>
+  <button class="nav-toggle" onclick="toggleMenu()">&#9776;</button>
+</nav>
+
+<!-- HERO -->
+<section class="hero" id="about">
+  <div class="hero-content">
+    <p class="hero-tag">Hello, I'm</p>
+    <h1 class="hero-name" id="hero-name">Irene Clay Kalinga</h1>
+    <p class="hero-title" id="hero-title">Website Developer</p>
+    <p class="hero-bio" id="hero-bio">I like building web applications with high usability, performance and clean design.</p>
+    <div class="hero-btns">
+      <a href="#projects" class="btn btn-primary">View Projects</a>
+      <a href="#contact" class="btn btn-outline">Contact Me</a>
+    </div>
+  </div>
+  <div class="hero-image">
+    <div class="avatar-ring">
+      <div class="avatar-circle" id="avatar-initials">IC</div>
+    </div>
+  </div>
+</section>
+
+<!-- SKILLS -->
+<section class="section section-alt" id="skills">
+  <div class="container">
+    <h2 class="section-title">Skills</h2>
+    <p class="section-sub">Technologies I work with</p>
+    <div class="section-line"></div>
+    <div class="skills-grid" id="skills-grid">
+      <div class="loading-bar"></div>
+    </div>
+  </div>
+</section>
+
+<!-- QUALIFICATIONS -->
+<section class="section" id="qualifications">
+  <div class="container">
+    <h2 class="section-title">Education</h2>
+    <p class="section-sub">My academic background</p>
+    <div class="section-line"></div>
+    <div class="timeline" id="qualifications-list">
+      <div class="loading-bar"></div>
+    </div>
+  </div>
+</section>
+
+<!-- PROJECTS -->
+<section class="section section-alt" id="projects">
+  <div class="container">
+    <h2 class="section-title">Projects</h2>
+    <p class="section-sub">Things I've built</p>
+    <div class="section-line"></div>
+    <div class="projects-grid" id="projects-grid">
+      <div class="loading-bar"></div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section class="section" id="contact">
+  <div class="container">
+    <h2 class="section-title">Contact</h2>
+    <p class="section-sub">Let's get in touch</p>
+    <div class="section-line"></div>
+    <div class="contact-cards" id="contact-cards">
+      <div class="loading-bar"></div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="footer">
+  <p id="footer-name">Irene Clay Kalinga</p>
+  <p>Built with Flask &amp; HTML · Hosted on Render &amp; Vercel</p>
+</footer>
+
+<script src="main.js"></script>
+<script>
+  /* ── THEME TOGGLE ── */
+  const btn  = document.getElementById('theme-toggle');
+  const knob = document.getElementById('knob');
+  const html = document.documentElement;
+  let dark = true;
+
+  btn.addEventListener('click', () => {
+    dark = !dark;
+    html.setAttribute('data-theme', dark ? 'dark' : 'light');
+    knob.textContent = dark ? '☀️' : '🌙';
+  });
+
+  /* ── MOBILE MENU ── */
+  function toggleMenu() {
+    document.querySelector('.nav-links').classList.toggle('open');
+  }
+
+  /* ── REVEAL ON SCROLL ── */
+  const obs = new IntersectionObserver(entries => {
+    entries.forEach((e, i) => {
+      if (e.isIntersecting) {
+        setTimeout(() => e.target.classList.add('visible'), i * 100);
+        obs.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.1 });
+  document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
+</script>
+</body>
+</html>
