@@ -1,8 +1,9 @@
+
 /* ══════════════════════════════════════
-   main.js (FIXED VERSION)
+   main.js (PRODUCTION FIXED)
 ══════════════════════════════════════ */
 
-const API_URL = "https://portifolio-kmnf.onrender.com";
+const API_URL = "https://portifolio-kmnf.onrender.com/api";
 
 /* ── FETCH HELPER ── */
 
@@ -60,9 +61,6 @@ async function loadSkills() {
     skills.forEach(domain => {
       const label = document.createElement("div");
 
-      label.style.cssText =
-        "width:100%;margin-top:1.2rem;margin-bottom:0.5rem;";
-
       label.innerHTML = `
         <p style="
           font-family:'Syne',sans-serif;
@@ -72,7 +70,9 @@ async function loadSkills() {
           letter-spacing:0.12em;
           color:var(--accent);
           border-bottom:1px solid var(--border);
-          padding-bottom:0.4rem;">
+          padding-bottom:0.4rem;
+          margin-top:1.2rem;
+          margin-bottom:0.5rem;">
           ${domain.domain}
         </p>
       `;
@@ -151,7 +151,6 @@ async function loadProjects() {
         </div>
 
         <p class="project-name">${p.title}</p>
-
         <p class="project-desc">${p.description}</p>
 
         <div class="project-tech">
@@ -208,7 +207,7 @@ async function loadContact() {
       {
         icon: "🐙",
         label: "GitHub",
-        value: "ireneclay01",
+        value: "GitHub",
         href: p.social.github
       }
     ];
@@ -217,9 +216,7 @@ async function loadContact() {
       const card = document.createElement("a");
       card.className = "contact-card reveal";
       card.href = item.href;
-
-      card.target =
-        item.href.startsWith("http") ? "_blank" : "_self";
+      card.target = item.href.startsWith("http") ? "_blank" : "_self";
 
       card.innerHTML = `
         <div class="contact-icon">${item.icon}</div>
@@ -241,7 +238,7 @@ async function loadContact() {
 }
 
 /* ══════════════════════════
-   REVEAL ANIMATION
+   REVEAL
 ══════════════════════════ */
 
 function activateReveal() {
@@ -255,9 +252,7 @@ function activateReveal() {
         obs.unobserve(e.target);
       }
     });
-  }, {
-    threshold: 0.1
-  });
+  }, { threshold: 0.1 });
 
   document
     .querySelectorAll(".reveal:not(.visible)")

@@ -16,26 +16,22 @@ def load_data():
             return json.load(f)
 
     except FileNotFoundError:
-        return {
-            "error": "data.json not found"
-        }
+        return {"error": "data.json not found"}
 
     except json.JSONDecodeError:
-        return {
-            "error": "Invalid JSON format"
-        }
+        return {"error": "Invalid JSON format"}
 
 
 @app.route("/")
 def home():
     return jsonify({
         "message": "Portfolio API is running",
-        "endpoints": [
-            "/api/profile",
-            "/api/skills",
-            "/api/qualifications",
-            "/api/projects"
-        ]
+        "endpoints": {
+            "profile": "/api/profile",
+            "skills": "/api/skills",
+            "qualifications": "/api/qualifications",
+            "projects": "/api/projects"
+        }
     })
 
 
@@ -66,9 +62,4 @@ def projects():
 
 if __name__ == "__main__":
     port = int(os.environ.get("PORT", 5000))
-
-    app.run(
-        host="0.0.0.0",
-        port=port,
-        debug=True
-    )
+    app.run(host="0.0.0.0", port=port, debug=True)
