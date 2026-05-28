@@ -337,6 +337,14 @@ body::before {
   color: var(--accent);
 }
 
+.profile-pic {
+  width: 180px;
+  height: 180px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 3px solid var(--accent);
+}
+
 /* ── SECTIONS ── */
 .section { padding: 6rem 2.5rem; position: relative; z-index: 1; }
 .section-alt { background: var(--bg2); }
