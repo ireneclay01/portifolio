@@ -2,7 +2,7 @@
    main.js (PRODUCTION STABLE VERSION)
 ══════════════════════════════════════ */
 
-const API_URL = "https://portifolio-kmnf.onrender.com";
+const API_URL = "https://portifolio-d74u.onrender.com";
 
 /* ── FETCH HELPER ── */
 async function get(path) {
