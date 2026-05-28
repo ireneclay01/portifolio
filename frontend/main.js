@@ -1,5 +1,5 @@
 /* ══════════════════════════════════════
-   main.js (FIXED + CLEAN REVEAL SYSTEM)
+   main.js (PRODUCTION STABLE VERSION)
 ══════════════════════════════════════ */
 
 const API_URL = "https://portifolio-kmnf.onrender.com";
@@ -22,12 +22,12 @@ async function loadProfile() {
   try {
     const p = await get("/profile");
 
-    document.getElementById("hero-name").textContent = p.name;
-    document.getElementById("hero-title").textContent = p.role;
-    document.getElementById("hero-bio").textContent = p.bio;
-    document.getElementById("footer-name").textContent = p.name;
+    document.getElementById("hero-name").textContent = p.name || "";
+    document.getElementById("hero-title").textContent = p.role || "";
+    document.getElementById("hero-bio").textContent = p.bio || "";
+    document.getElementById("footer-name").textContent = p.name || "";
 
-    const initials = p.name
+    const initials = (p.name || "")
       .split(" ")
       .map(w => w[0])
       .join("")
@@ -36,7 +36,7 @@ async function loadProfile() {
 
     document.getElementById("avatar-initials").textContent = initials;
 
-    document.title = `${p.name} | ${p.role}`;
+    document.title = `${p.name || "Portfolio"} | ${p.role || ""}`;
 
   } catch (err) {
     console.error("Profile load failed:", err);
@@ -49,17 +49,14 @@ async function loadProfile() {
 async function loadSkills() {
   const grid = document.getElementById("skills-grid");
 
-  if (!grid) {
-    console.error("skills-grid not found");
-    return;
-  }
+  if (!grid) return;
 
   try {
     const skills = await get("/skills");
 
     grid.innerHTML = "";
 
-    skills.forEach(domain => {
+    (skills || []).forEach(domain => {
       const label = document.createElement("div");
 
       label.innerHTML = `
@@ -74,13 +71,13 @@ async function loadSkills() {
           padding-bottom:0.4rem;
           margin-top:1.2rem;
           margin-bottom:0.5rem;">
-          ${domain.domain}
+          ${domain.domain || ""}
         </p>
       `;
 
       grid.appendChild(label);
 
-      domain.technologies.forEach(tech => {
+      (domain.technologies || []).forEach(tech => {
         const pill = document.createElement("span");
         pill.className = "skill-pill reveal";
         pill.textContent = tech;
@@ -88,9 +85,7 @@ async function loadSkills() {
       });
     });
 
-    requestAnimationFrame(() => {
-      activateReveal();
-    });
+    requestAnimationFrame(() => activateReveal());
 
   } catch (err) {
     console.error("Skills load failed:", err);
@@ -103,30 +98,32 @@ async function loadSkills() {
 async function loadQualifications() {
   const list = document.getElementById("qualifications-list");
 
+  if (!list) return;
+
   try {
     const data = await get("/qualifications");
 
     list.innerHTML = "";
 
-    data.education.forEach(e => {
+    const education = data.education || [];
+
+    education.forEach(e => {
       const item = document.createElement("div");
       item.className = "timeline-item reveal";
 
       item.innerHTML = `
-        <p class="timeline-year">${e.period}</p>
-        <p class="timeline-degree">${e.degree}</p>
-        <p class="timeline-school">🏛 ${e.institution}</p>
+        <p class="timeline-year">${e.period || ""}</p>
+        <p class="timeline-degree">${e.degree || ""}</p>
+        <p class="timeline-school">🏛 ${e.institution || ""}</p>
         <p style="color:var(--muted);font-size:0.88rem;margin-top:0.5rem;">
-          ${e.description}
+          ${e.description || ""}
         </p>
       `;
 
       list.appendChild(item);
     });
 
-    requestAnimationFrame(() => {
-      activateReveal();
-    });
+    requestAnimationFrame(() => activateReveal());
 
   } catch (err) {
     console.error("Qualifications load failed:", err);
@@ -139,39 +136,41 @@ async function loadQualifications() {
 async function loadProjects() {
   const grid = document.getElementById("projects-grid");
 
+  if (!grid) return;
+
   try {
     const projects = await get("/projects");
 
     grid.innerHTML = "";
 
-    projects.forEach(p => {
+    (projects || []).forEach(p => {
       const card = document.createElement("div");
       card.className = "project-card reveal";
 
       card.innerHTML = `
         <div style="font-size:2rem;margin-bottom:0.5rem;">
-          ${p.emoji}
+          ${p.emoji || ""}
         </div>
 
-        <p class="project-name">${p.title}</p>
-        <p class="project-desc">${p.description}</p>
+        <p class="project-name">${p.title || ""}</p>
+        <p class="project-desc">${p.description || ""}</p>
 
         <div class="project-tech">
-          ${p.stack.map(t => `<span class="tech-tag">${t}</span>`).join("")}
+          ${(p.stack || [])
+            .map(t => `<span class="tech-tag">${t}</span>`)
+            .join("")}
         </div>
 
         <div style="display:flex;gap:1rem;margin-top:1rem;">
-          <a href="${p.liveUrl}" class="project-link" target="_blank">↗ Live</a>
-          <a href="${p.githubUrl}" class="project-link" target="_blank">GitHub</a>
+          <a href="${p.liveUrl || "#"}" class="project-link" target="_blank">↗ Live</a>
+          <a href="${p.githubUrl || "#"}" class="project-link" target="_blank">GitHub</a>
         </div>
       `;
 
       grid.appendChild(card);
     });
 
-    requestAnimationFrame(() => {
-      activateReveal();
-    });
+    requestAnimationFrame(() => activateReveal());
 
   } catch (err) {
     console.error("Projects load failed:", err);
@@ -184,16 +183,38 @@ async function loadProjects() {
 async function loadContact() {
   const cards = document.getElementById("contact-cards");
 
+  if (!cards) return;
+
   try {
     const p = await get("/profile");
 
     cards.innerHTML = "";
 
     const items = [
-      { icon: "📧", label: "Email", value: p.email, href: `mailto:${p.email}` },
-      { icon: "📞", label: "Phone", value: p.phone, href: `tel:${p.phone}` },
-      { icon: "📍", label: "Location", value: p.location, href: "#" },
-      { icon: "🐙", label: "GitHub", value: "GitHub", href: p.social.github }
+      {
+        icon: "📧",
+        label: "Email",
+        value: p.email || "",
+        href: `mailto:${p.email || ""}`
+      },
+      {
+        icon: "📞",
+        label: "Phone",
+        value: p.phone || "",
+        href: `tel:${p.phone || ""}`
+      },
+      {
+        icon: "📍",
+        label: "Location",
+        value: p.location || "",
+        href: "#"
+      },
+      {
+        icon: "🐙",
+        label: "GitHub",
+        value: "GitHub",
+        href: p.social?.github || "#"
+      }
     ];
 
     items.forEach(item => {
@@ -213,9 +234,7 @@ async function loadContact() {
       cards.appendChild(card);
     });
 
-    requestAnimationFrame(() => {
-      activateReveal();
-    });
+    requestAnimationFrame(() => activateReveal());
 
   } catch (err) {
     console.error("Contact load failed:", err);
@@ -223,7 +242,7 @@ async function loadContact() {
 }
 
 /* ══════════════════════════
-   REVEAL (FIXED SINGLE SYSTEM)
+   REVEAL SYSTEM (FIXED)
 ══════════════════════════ */
 function activateReveal() {
   const obs = new IntersectionObserver(entries => {
