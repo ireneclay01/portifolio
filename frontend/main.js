@@ -1,12 +1,10 @@
-
 /* ══════════════════════════════════════
-   main.js (PRODUCTION FIXED)
+   main.js (FIXED + CLEAN REVEAL SYSTEM)
 ══════════════════════════════════════ */
 
 const API_URL = "https://portifolio-kmnf.onrender.com/api";
 
 /* ── FETCH HELPER ── */
-
 async function get(path) {
   const res = await fetch(API_URL + path);
 
@@ -20,7 +18,6 @@ async function get(path) {
 /* ══════════════════════════
    PROFILE
 ══════════════════════════ */
-
 async function loadProfile() {
   try {
     const p = await get("/profile");
@@ -49,9 +46,13 @@ async function loadProfile() {
 /* ══════════════════════════
    SKILLS
 ══════════════════════════ */
-
 async function loadSkills() {
   const grid = document.getElementById("skills-grid");
+
+  if (!grid) {
+    console.error("skills-grid not found");
+    return;
+  }
 
   try {
     const skills = await get("/skills");
@@ -87,7 +88,9 @@ async function loadSkills() {
       });
     });
 
-    activateReveal();
+    requestAnimationFrame(() => {
+      activateReveal();
+    });
 
   } catch (err) {
     console.error("Skills load failed:", err);
@@ -97,7 +100,6 @@ async function loadSkills() {
 /* ══════════════════════════
    QUALIFICATIONS
 ══════════════════════════ */
-
 async function loadQualifications() {
   const list = document.getElementById("qualifications-list");
 
@@ -122,7 +124,9 @@ async function loadQualifications() {
       list.appendChild(item);
     });
 
-    activateReveal();
+    requestAnimationFrame(() => {
+      activateReveal();
+    });
 
   } catch (err) {
     console.error("Qualifications load failed:", err);
@@ -132,7 +136,6 @@ async function loadQualifications() {
 /* ══════════════════════════
    PROJECTS
 ══════════════════════════ */
-
 async function loadProjects() {
   const grid = document.getElementById("projects-grid");
 
@@ -166,7 +169,9 @@ async function loadProjects() {
       grid.appendChild(card);
     });
 
-    activateReveal();
+    requestAnimationFrame(() => {
+      activateReveal();
+    });
 
   } catch (err) {
     console.error("Projects load failed:", err);
@@ -176,7 +181,6 @@ async function loadProjects() {
 /* ══════════════════════════
    CONTACT
 ══════════════════════════ */
-
 async function loadContact() {
   const cards = document.getElementById("contact-cards");
 
@@ -186,30 +190,10 @@ async function loadContact() {
     cards.innerHTML = "";
 
     const items = [
-      {
-        icon: "📧",
-        label: "Email",
-        value: p.email,
-        href: `mailto:${p.email}`
-      },
-      {
-        icon: "📞",
-        label: "Phone",
-        value: p.phone,
-        href: `tel:${p.phone}`
-      },
-      {
-        icon: "📍",
-        label: "Location",
-        value: p.location,
-        href: "#"
-      },
-      {
-        icon: "🐙",
-        label: "GitHub",
-        value: "GitHub",
-        href: p.social.github
-      }
+      { icon: "📧", label: "Email", value: p.email, href: `mailto:${p.email}` },
+      { icon: "📞", label: "Phone", value: p.phone, href: `tel:${p.phone}` },
+      { icon: "📍", label: "Location", value: p.location, href: "#" },
+      { icon: "🐙", label: "GitHub", value: "GitHub", href: p.social.github }
     ];
 
     items.forEach(item => {
@@ -220,7 +204,6 @@ async function loadContact() {
 
       card.innerHTML = `
         <div class="contact-icon">${item.icon}</div>
-
         <div>
           <p class="contact-label">${item.label}</p>
           <p class="contact-value">${item.value}</p>
@@ -230,7 +213,9 @@ async function loadContact() {
       cards.appendChild(card);
     });
 
-    activateReveal();
+    requestAnimationFrame(() => {
+      activateReveal();
+    });
 
   } catch (err) {
     console.error("Contact load failed:", err);
@@ -238,9 +223,8 @@ async function loadContact() {
 }
 
 /* ══════════════════════════
-   REVEAL
+   REVEAL (FIXED SINGLE SYSTEM)
 ══════════════════════════ */
-
 function activateReveal() {
   const obs = new IntersectionObserver(entries => {
     entries.forEach((e, i) => {
@@ -254,15 +238,14 @@ function activateReveal() {
     });
   }, { threshold: 0.1 });
 
-  document
-    .querySelectorAll(".reveal:not(.visible)")
-    .forEach(el => obs.observe(el));
+  document.querySelectorAll(".reveal:not(.visible)").forEach(el => {
+    obs.observe(el);
+  });
 }
 
 /* ══════════════════════════
    INIT
 ══════════════════════════ */
-
 document.addEventListener("DOMContentLoaded", () => {
   loadProfile();
   loadSkills();
